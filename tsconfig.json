@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "module": "node16",
+    "noEmit": true,
+    "strict": true,
+    "stripInternal": true,
+    "target": "esnext"
+  }
+}
