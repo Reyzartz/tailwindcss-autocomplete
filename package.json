@@ -14,6 +14,11 @@
   "exports": {
     ".": "./index.js"
   },
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Reyzartz/tailwindcss-autocomplete"
+  },
   "keywords": [
     "tailwind",
     "tailwindcss",
@@ -28,8 +33,13 @@
     "postcss-js": "^4.0.1",
     "postcss-nested": "^6.0.1",
     "postcss-selector-parser": "^6.0.0",
+    "semver": "^7.5.1",
     "tailwindcss": "^3.0.0",
     "vscode-languageserver-textdocument": "^1.0.0"
+  },
+  "author": {
+    "name": "Reyzartz",
+    "url": "https://github.com/Reyzartz/"
   },
   "devDependencies": {
     "@types/culori": "^2.0.0",
