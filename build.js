@@ -14,6 +14,7 @@ const pkg = JSON.parse(
 await build({
   entryPoints: ["src/index.ts"],
   bundle: true,
+  minify: true,
   external: Object.keys({
     ...pkg.dependencies,
     ...pkg.peerDependencies,
