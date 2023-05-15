@@ -3,18 +3,19 @@
   "version": "0.5.1",
   "description": "A Package to autocomplete tailwindcss classes",
   "files": [
-    "index.js",
-    "index.js.map",
-    "index.d.ts"
+    "src",
+    "dist"
   ],
   "type": "module",
   "scripts": {
-    "build": "node build.js"
+    "build": "node build.js",
+    "postbuild": "tsc"
   },
   "exports": {
-    ".": "./index.js"
+    ".": "./dist/index.js"
   },
-  "main": "index.js",
+  "main": "/dist/index.js",
+  "types": "/dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/Reyzartz/tailwindcss-autocomplete"

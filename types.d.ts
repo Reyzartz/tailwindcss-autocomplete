@@ -3,7 +3,10 @@ declare module "tailwindcss/src/lib/expandApplyAtRules.js" {
 }
 
 declare module "tailwindcss/src/util/splitAtTopLevelOnly.js" {
-  export function splitAtTopLevelOnly(input: string, separator: string): string[];
+  export function splitAtTopLevelOnly(
+    input: string,
+    separator: string
+  ): string[];
 }
 
 declare module "tailwindcss/src/lib/generateRules.js" {
@@ -26,12 +29,18 @@ declare module "tailwindcss/src/lib/setupContextUtils.js" {
     tailwindConfig: Config;
   }
 
-  export function createContext(config: Config, changedContent?: ChangedContent[]): JitContext;
+  export function createContext(
+    config: Config,
+    changedContent?: ChangedContent[]
+  ): JitContext;
 }
 
 declare module "tailwindcss/src/processTailwindFeatures.js" {
   import { AtRule, Plugin, Result, Root } from "postcss";
-  import { createContext, JitContext } from "tailwindcss/src/lib/setupContextUtils.js";
+  import {
+    createContext,
+    JitContext,
+  } from "tailwindcss/src/lib/setupContextUtils.js";
 
   type SetupContext = (root: Root, result: Result) => JitContext;
 
@@ -50,5 +59,7 @@ declare module "tailwindcss/src/processTailwindFeatures.js" {
 declare module "tailwindcss/src/public/resolve-config.js" {
   import { Config } from "tailwindcss";
 
-  export default function resolveConfig(tailwindConfig: Omit<Config, "content">): Config;
+  export default function resolveConfig(
+    tailwindConfig: Omit<Config, "content">
+  ): Config;
 }

@@ -1,9 +1,13 @@
 {
   "compilerOptions": {
-    "module": "node16",
-    "noEmit": true,
+    "module": "Node16",
+    "outDir": "./dist/",
     "strict": true,
     "stripInternal": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
     "target": "esnext"
-  }
+  },
+  "include": ["src/index.ts", "types.d.ts"],
+  "exclude": ["node_modules", "examples/"]
 }

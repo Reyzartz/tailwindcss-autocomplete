@@ -20,7 +20,7 @@ await build({
     ...pkg.peerDependencies,
   }).filter((name) => name !== "tailwindcss"),
   logLevel,
-  outdir: ".",
+  outdir: "./dist",
   sourcemap: true,
   format: "esm",
   target: ["es2020"],
