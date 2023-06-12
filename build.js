@@ -12,7 +12,7 @@ const pkg = JSON.parse(
 );
 
 await build({
-  entryPoints: ["src/index.ts"],
+  entryPoints: ["src/index.ts", "src/utils.ts"],
   bundle: true,
   minify: true,
   external: Object.keys({

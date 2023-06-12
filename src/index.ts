@@ -54,11 +54,13 @@ class TailwindTool implements ITailwindTool {
 
     const results = await doComplete(this.state, textDocument, position);
 
-    return search(classCandidate, results.items, {
-      keySelector: (ele) => ele.label,
-      threshold: 0.6,
-      sortBy: sortKind.bestMatch,
-    });
+    return className.length === 0
+      ? results.items
+      : search(classCandidate, results.items, {
+          keySelector: (ele) => ele.label,
+          threshold: 0.6,
+          sortBy: sortKind.bestMatch,
+        });
   }
 
   async getClassCssText(className: string): Promise<string | null> {
