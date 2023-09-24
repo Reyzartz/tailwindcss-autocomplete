@@ -12,12 +12,7 @@ import {
 } from "tailwindcss-language-service";
 import { MarkupContent } from "vscode-languageserver-types";
 
-import {
-  ITailwindTool,
-  SuggestionItem,
-  TailwindConfig,
-  TTailwindVersion,
-} from "./types";
+import { SuggestionItem, TailwindConfig, TTailwindVersion } from "./types";
 import {
   getTextDocument,
   rgbaToHexA,
@@ -25,7 +20,7 @@ import {
   stateFromConfig,
 } from "./utils.js";
 
-class TailwindTool implements ITailwindTool {
+class TailwindAutocomplete {
   tailwindConfig: TailwindConfig;
   version;
   private state: State;
@@ -52,7 +47,7 @@ class TailwindTool implements ITailwindTool {
   async getSuggestionList(className: string): Promise<SuggestionItem[]> {
     const textDocument = getTextDocument(`<span class='${className}'></span>`);
 
-    let [classCandidate] = splitClassWithSeparator(
+    let [classCandidate, ...variants] = splitClassWithSeparator(
       className,
       this.state.separator
     ).reverse();
@@ -66,8 +61,6 @@ class TailwindTool implements ITailwindTool {
       line: 0,
     };
 
-    const variants = className.split(":").slice(0, -1);
-
     const results = (
       await doComplete(this.state, textDocument, position)
     ).items.map((item) => {
@@ -76,7 +69,7 @@ class TailwindTool implements ITailwindTool {
         color:
           typeof item.documentation === "string" ? item.documentation : null,
         isVariant: item.data._type === "variant",
-        variants: item.data?.variants ?? variants,
+        variants: item.data?.variants ?? variants.reverse(),
         important: item.data?.important ?? false,
       };
     });
@@ -90,7 +83,7 @@ class TailwindTool implements ITailwindTool {
         });
   }
 
-  async getClassCssText(className: string): Promise<string | null> {
+  async getCssText(className: string): Promise<string | null> {
     const textDocument = getTextDocument(`<span class='${className}'></span>`);
 
     const position = {
@@ -106,6 +99,15 @@ class TailwindTool implements ITailwindTool {
     }
 
     return (res.contents as MarkupContent).value;
+  }
+
+  getVariantsFromClassName(className: string): string[] {
+    const [_, ...variants] = splitClassWithSeparator(
+      className,
+      this.state.separator
+    ).reverse();
+
+    return variants.reverse();
   }
 
   // TODO:Doesn't work
@@ -137,5 +139,5 @@ class TailwindTool implements ITailwindTool {
   }
 }
 
-export default TailwindTool;
-export type { ITailwindTool, SuggestionItem, TailwindConfig, TTailwindVersion };
+export default TailwindAutocomplete;
+export type { SuggestionItem, TailwindConfig, TTailwindVersion };
