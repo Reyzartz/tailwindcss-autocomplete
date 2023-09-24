@@ -2,7 +2,7 @@ import { AugmentedDiagnostic, Variant } from "tailwindcss-language-service";
 import { ITailwindTool, SuggestionItem, TailwindConfig, TTailwindVersion } from "./types";
 declare class TailwindTool implements ITailwindTool {
     tailwindConfig: TailwindConfig;
-    version: "3.0.0";
+    version: any;
     private state;
     constructor(config: TailwindConfig, version?: TTailwindVersion);
     get config(): TailwindConfig;

@@ -15,6 +15,9 @@ const pkg = JSON.parse(
 await build({
   entryPoints: ["src/index.ts", "src/utils.ts"],
   bundle: true,
+  treeShaking: true,
+  format: "cjs",
+  platform: "node",
   minify: true,
   external: Object.keys({
     ...pkg.dependencies,
@@ -23,7 +26,6 @@ await build({
   logLevel,
   outdir: "./dist",
   sourcemap: true,
-  format: "esm",
   target: ["es2020"],
   loader: { ".css": "text" },
   define: {
