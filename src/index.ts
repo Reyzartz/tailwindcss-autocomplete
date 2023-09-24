@@ -26,13 +26,22 @@ import {
 } from "./utils.js";
 
 class TailwindTool implements ITailwindTool {
-  config;
+  tailwindConfig: TailwindConfig;
   version;
   private state: State;
 
   constructor(config: TailwindConfig, version: TTailwindVersion = "3.0.0") {
-    this.config = config;
+    this.tailwindConfig = config;
     this.version = version;
+    this.state = stateFromConfig(config);
+  }
+
+  get config() {
+    return this.tailwindConfig;
+  }
+
+  set config(config: TailwindConfig) {
+    this.tailwindConfig = config;
     this.state = stateFromConfig(config);
   }
 
