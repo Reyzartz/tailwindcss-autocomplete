@@ -12,7 +12,3 @@ export interface SuggestionItem {
     important: boolean;
 }
 export type TailwindConfig = Omit<Config, "content">;
-export interface ITailwindTool {
-    config: TailwindConfig;
-    version: TTailwindVersion;
-}
