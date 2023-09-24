@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.5.9](https://github.com/Reyzartz/tailwindcss-autocomplete/compare/v0.5.8...v0.5.9) (2023-09-24)
+
+
+### Features
+
+* added function to get variants from classname ([8642aaf](https://github.com/Reyzartz/tailwindcss-autocomplete/commit/8642aaf7fe8fb36cd9df27bde8381182033c25bb))
+
 ### [0.5.8](https://github.com/Reyzartz/tailwindcss-autocomplete/compare/v0.5.7...v0.5.8) (2023-09-24)
 
 ### [0.5.7](https://github.com/Reyzartz/tailwindcss-autocomplete/compare/v0.5.6...v0.5.7) (2023-09-24)

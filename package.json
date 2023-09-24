@@ -1,6 +1,6 @@
 {
   "name": "tailwindcss-autocomplete",
-  "version": "0.5.8",
+  "version": "0.5.9",
   "description": "A Package to autocomplete tailwindcss classes",
   "files": [
     "src",
