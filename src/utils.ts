@@ -18,7 +18,7 @@ export function stateFromConfig(
   version: TTailwindVersion = '3.0.0',
 ): JitState {
   // eslint-disable-next-line no-console
-  console.count('stateFromConfig');
+  // console.count('stateFromConfig');
 
   const config = resolveConfig(tailwindConfig);
   const jitContext = createContext(config);

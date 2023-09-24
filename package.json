@@ -8,7 +8,7 @@
   ],
   "type": "module",
   "scripts": {
-    "build": "node build.js",
+    "build": "npx rimraf ./dist && node build.mjs",
     "postbuild": "tsc"
   },
   "exports": {
@@ -45,11 +45,12 @@
   },
   "devDependencies": {
     "@types/culori": "^2.0.0",
-    "esbuild": "^0.17.0",
+    "esbuild": "^0.19.3",
     "esbuild-plugin-inline-worker": "^0.1.1",
+    "esbuild-plugin-tsc": "^0.4.0",
     "prettier": "^2.0.0",
     "tailwindcss-language-service": "0.0.28",
-    "typescript": "^5.0.0",
+    "typescript": "^5.2.2",
     "vscode-languageserver-protocol": "^3.0.0",
     "vscode-languageserver-types": "^3.0.0"
   },

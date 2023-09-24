@@ -10,9 +10,14 @@ import {
   State,
   Variant,
 } from "tailwindcss-language-service";
-import { CompletionItem, MarkupContent } from "vscode-languageserver-types";
+import { MarkupContent } from "vscode-languageserver-types";
 
-import { ITailwindTool, TailwindConfig, TTailwindVersion } from "./types.js";
+import {
+  ITailwindTool,
+  SuggestionItem,
+  TailwindConfig,
+  TTailwindVersion,
+} from "./types";
 import {
   getTextDocument,
   rgbaToHexA,
@@ -35,7 +40,7 @@ class TailwindTool implements ITailwindTool {
     return this.state.variants ?? [];
   }
 
-  async getSuggestionList(className: string): Promise<CompletionItem[]> {
+  async getSuggestionList(className: string): Promise<SuggestionItem[]> {
     const textDocument = getTextDocument(`<span class='${className}'></span>`);
 
     let [classCandidate] = splitClassWithSeparator(
@@ -52,12 +57,25 @@ class TailwindTool implements ITailwindTool {
       line: 0,
     };
 
-    const results = await doComplete(this.state, textDocument, position);
+    const variants = className.split(":").slice(0, -1);
+
+    const results = (
+      await doComplete(this.state, textDocument, position)
+    ).items.map((item) => {
+      return {
+        name: item.label as string,
+        color:
+          typeof item.documentation === "string" ? item.documentation : null,
+        isVariant: item.data._type === "variant",
+        variants: item.data?.variants ?? variants,
+        important: item.data?.important ?? false,
+      };
+    });
 
     return className.length === 0
-      ? results.items
-      : search(classCandidate, results.items, {
-          keySelector: (ele) => ele.label,
+      ? results
+      : search(classCandidate, results, {
+          keySelector: (ele) => ele.name,
           threshold: 0.6,
           sortBy: sortKind.bestMatch,
         });
@@ -79,14 +97,6 @@ class TailwindTool implements ITailwindTool {
     }
 
     return (res.contents as MarkupContent).value;
-  }
-
-  async getResolveCompletionItem(
-    item: CompletionItem
-  ): Promise<CompletionItem> {
-    const res = await resolveCompletionItem(this.state, item);
-
-    return res;
   }
 
   // TODO:Doesn't work
@@ -119,3 +129,4 @@ class TailwindTool implements ITailwindTool {
 }
 
 export default TailwindTool;
+export type { ITailwindTool, SuggestionItem, TailwindConfig, TTailwindVersion };

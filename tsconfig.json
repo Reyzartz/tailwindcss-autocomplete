@@ -1,13 +1,25 @@
 {
   "compilerOptions": {
-    "module": "Node16",
-    "outDir": "./dist/",
+    "target": "ES2016",
+    "useDefineForClassFields": true,
+    "lib": ["ESNext"],
+    "allowJs": false,
+    "skipLibCheck": true,
+    "esModuleInterop": false,
+    "allowSyntheticDefaultImports": true,
     "strict": true,
-    "stripInternal": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
     "declaration": true,
     "emitDeclarationOnly": true,
-    "target": "esnext"
+    "paths": {
+      "@toolwind/*": ["./src/*"]
+    },
+    "outDir": "./dist"
   },
-  "include": ["src/index.ts", "types.d.ts"],
+  "include": ["./src/index.ts", "types.d.ts"],
   "exclude": ["node_modules", "examples/"]
 }

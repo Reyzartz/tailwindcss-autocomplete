@@ -3,6 +3,7 @@
 import { readdir, readFile } from "node:fs/promises";
 import { parse, sep } from "node:path";
 import { fileURLToPath } from "node:url";
+import esbuildPluginTsc from "esbuild-plugin-tsc";
 
 import { build } from "esbuild";
 

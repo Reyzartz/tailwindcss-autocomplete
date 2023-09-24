@@ -1,22 +1,16 @@
 import { Fragment, useCallback, useState } from "react";
 import { Combobox, Transition } from "@headlessui/react";
-import TailwindCssAutocomplete from "tailwindcss-autocomplete";
-import { splitClassWithSeparator } from "tailwindcss-autocomplete/utils";
+import TailwindCssAutocomplete, {
+  SuggestionItem,
+} from "tailwindcss-autocomplete";
 
 const tailwindCssAutocomplete = new TailwindCssAutocomplete({});
 
-interface IClassName {
-  name: string;
-  color?: string;
-  isVariant: boolean;
-  variants: string[];
-}
-
 function App() {
-  const [selected, setSelected] = useState<IClassName>();
+  const [selected, setSelected] = useState<SuggestionItem>();
   const [query, setQuery] = useState("");
 
-  const [classNames, setClassName] = useState<IClassName[]>([]);
+  const [classNames, setClassName] = useState<SuggestionItem[]>([]);
 
   const onChangeHandler = useCallback(async (value: string) => {
     setQuery(value);
@@ -24,14 +18,7 @@ function App() {
 
     console.log(result);
 
-    setClassName(
-      result.slice(0, 100).map(({ label, documentation, data }) => ({
-        name: label,
-        color: typeof documentation === "string" ? documentation : undefined,
-        isVariant: data._type === "variant",
-        variants: data.variants ?? [],
-      }))
-    );
+    setClassName(result.slice(0, 50));
   }, []);
 
   console.log(selected);
@@ -41,18 +28,18 @@ function App() {
       <h1 className="text-4xl mb-10 font-semibold text-orange-800">
         Tailwind Css <span className="text-orange-400">Auto</span>Complete
       </h1>
-      <Combobox value={selected} onChange={setSelected}>
+      <Combobox<SuggestionItem> value={selected} onChange={setSelected}>
         <div className="relative mt-1">
           <div className="flex relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
-            {selected?.variants?.length > 0 && (
+            {selected && selected.variants.length > 0 && (
               <div className=" py-2 pl-4 pr-2 text-lg inline-block text-orange-800">
-                {selected?.variants.join(":")}:
+                {selected.variants.join(":")}:
               </div>
             )}
 
-            <Combobox.Input
+            <Combobox.Input<SuggestionItem>
               className="w-full border-none py-2 pl-4 pr-10 text-lg text-orange-800 leading-5 focus:ring-0 outline-none focus:bg-orange-100 placeholder:text-orange-300"
-              displayValue={({ name }: IClassName) => name}
+              displayValue={({ name }) => name}
               placeholder="Enter class name"
               onChange={(event) => onChangeHandler(event.target.value)}
             />
@@ -86,7 +73,7 @@ function App() {
                   >
                     {({ active }) => (
                       <>
-                        {className.color === undefined ? (
+                        {className.color === null ? (
                           <span className="font-semibold text-orange-400">
                             {className.isVariant ? `{}` : "☲"}
                           </span>
